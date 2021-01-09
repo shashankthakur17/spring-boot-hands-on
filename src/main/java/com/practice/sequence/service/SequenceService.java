@@ -17,6 +17,10 @@ public class SequenceService {
 		Integer goalInt = Integer.valueOf(reqNumber.getGoal());
 		Integer stepInt = Integer.valueOf(reqNumber.getStep());
 		StringBuffer result = new StringBuffer();
+		
+		if(goalInt < stepInt) {
+			return null;
+		}
 		while (goalInt >= 0) {
 			if (!result.isEmpty()) {
 				result.append(", ");
@@ -37,11 +41,15 @@ public class SequenceService {
 			respTaskSequence.setStatus(Status.inProgress.statusLable);
 			try {
 				String result = calculateSequence(requestNumber);
+				if(result == null) {
+					throw new IllegalArgumentException("Unable to calculate sequence");
+				}
 				listResultSequence.add(result);
 				respTaskSequence.setResult(listResultSequence);
 				respTaskSequence.setStatus(Status.success.statusLable);
 			} catch (Exception e) {
 				respTaskSequence.setStatus(Status.error.statusLable);
+				return "Error Occured, Please provide Valid Goal and Step";
 			}
 
 			// generate UUID
@@ -64,10 +72,14 @@ public class SequenceService {
 					respTaskSequence.setStatus(Status.inProgress.statusLable);
 					try {
 						String result = calculateSequence(reqNumber); // calc sequence
+						if(result == null) {
+							throw new IllegalArgumentException("Unable to calculate sequence");
+						}
 						listResultSequence.add(result);
 						respTaskSequence.setStatus(Status.success.statusLable);
 					} catch (Exception e) {
 						respTaskSequence.setStatus(Status.error.statusLable);
+						return "Error Occured, Please provide Valid Goal and Step";
 					}
 				}
 			}
