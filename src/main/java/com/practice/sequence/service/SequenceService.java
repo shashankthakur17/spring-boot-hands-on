@@ -46,7 +46,7 @@ public class SequenceService {
 				respTaskSequence.setStatus(Status.success.statusLable);
 			} catch (Exception e) {
 				respTaskSequence.setStatus(Status.error.statusLable);
-				return "Error Occured, Please provide Valid Goal and Step";
+				return "Error Occurred, Please provide Valid Goal and Step";
 			}
 
 			// generate UUID
