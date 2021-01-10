@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.practice</groupId>
-	<artifactId>sequencegenerator</artifactId>
+	<artifactId>sequence-generator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sequencegenerator</name>
+	<name>sequence-generator</name>
 	<description>number sequence generator project for Spring Boot</description>
 
 	<properties>

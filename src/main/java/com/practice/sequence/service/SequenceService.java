@@ -1,6 +1,7 @@
 package com.practice.sequence.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -14,22 +15,18 @@ public class SequenceService {
 
 	synchronized public String calculateSequence(RequestNumberVO reqNumber) {
 		// calculate sequence/ generate result
-		Integer goalInt = Integer.valueOf(reqNumber.getGoal());
-		Integer stepInt = Integer.valueOf(reqNumber.getStep());
-		StringBuffer result = new StringBuffer();
+		Long goal = Long.valueOf(reqNumber.getGoal());
+		Long step = Long.valueOf(reqNumber.getStep());
+		List<Long> listSequence = new ArrayList<>();
 		
-		if(goalInt < stepInt) {
+		if(goal < step || step <= 0) {
 			return null;
 		}
-		while (goalInt >= 0) {
-			if (!result.isEmpty()) {
-				result.append(", ");
-			}
-			result.append(goalInt);
-			goalInt = goalInt - stepInt;
+		while (goal >= 0) {
+			listSequence.add(goal);
+			goal -= step;
 		}
-
-		return result.toString();
+		return listSequence.toString().replace("[", "").replace("]", "");
 	}
 
 	public String generateSequence(RequestNumberVO requestNumber, Map<String, RespTaskSequenceVO> sequences) {
@@ -106,7 +103,7 @@ public class SequenceService {
 		if (!id.isEmpty() && !action.isEmpty()) {
 			if (action.equalsIgnoreCase("get_numlist")) {
 				RespTaskSequenceVO respTaskSequence = sequences.get(id);
-				return respTaskSequence != null ? respTaskSequence.getResult() : List.of();
+				return respTaskSequence != null ? respTaskSequence.getResult() : Collections.emptyList();
 			}
 		}
 		return List.of(); // return an empty List is place of null, if no result is found
