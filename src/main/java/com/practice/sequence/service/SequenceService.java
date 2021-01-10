@@ -106,12 +106,12 @@ public class SequenceService {
 				return respTaskSequence != null ? respTaskSequence.getResult() : Collections.emptyList();
 			}
 		}
-		return List.of(); // return an empty List is place of null, if no result is found
+		return Collections.emptyList(); // return an empty List is place of null, if no result is found
 	}
 
 	// Status Enum
 	public enum Status {
-		success("SUCCESS"), inProgress("IN_PROGRESS"), error("Error");
+		success("SUCCESS"), inProgress("IN_PROGRESS"), error("ERROR");
 
 		public final String statusLable;
 
